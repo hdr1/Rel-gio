@@ -1,0 +1,90 @@
+function sMark() {
+
+    for (var i = 0; i < 60; i++) {
+        angle = (i - 3) * (Math.PI * 2) / 60;       // THE ANGLE TO MARK.
+        ctx.lineWidth = 1;            // HAND WIDTH.
+        ctx.beginPath();
+
+        var x1 = (canvas.width / 2) + Math.cos(angle) * (secHandLength);
+        var y1 = (canvas.height / 2) + Math.sin(angle) * (secHandLength);
+        var x2 = (canvas.width / 2) + Math.cos(angle) * (secHandLength - (secHandLength / 30));
+        var y2 = (canvas.height / 2) + Math.sin(angle) * (secHandLength - (secHandLength / 30));
+
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+
+        ctx.strokeStyle = 'gray';
+        ctx.stroke();
+    }
+}
+
+function updateSeconds() {
+
+    var sec = date.getSeconds();  /* Pega os segundos do sistema e atribui a variavel sec */
+    angle = ((Math.PI * 2) * (sec / 60)) - ((Math.PI * 2) / 4);
+    ctx.lineWidth = 1;              // Largura do ponteiro dos segundos.
+
+    ctx.beginPath();
+    // Começa no centro do relógio.
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+
+    // Desenha o ponteiro dos segundos
+    ctx.lineTo((canvas.width / 2 + Math.cos(angle) * secHandLength),
+        canvas.height / 2 + Math.sin(angle) * secHandLength);
+
+    // Desenha a cauda do ponteiro dos segundos
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+
+    // Desenha o ponteiro
+    ctx.lineTo((canvas.width / 2 - Math.cos(angle) * 20),
+        canvas.height / 2 - Math.sin(angle) * 20);
+
+    ctx.strokeStyle = 'red';        // Define a cor do ponteiro.
+    ctx.stroke();
+}
+
+function updateMinutes() {
+
+    var min = date.getMinutes();
+    angle = ((Math.PI * 2) * (min / 60)) - ((Math.PI * 2) / 4);
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+
+
+    ctx.lineTo((canvas.width / 2 + Math.cos(angle) * secHandLength / 1.1),
+        canvas.height / 2 + Math.sin(angle) * secHandLength / 1.1);
+
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+}
+
+function updateHours() {
+
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    angle = ((Math.PI * 2) * ((hour * 5 + (min / 60) * 5) / 60)) - ((Math.PI * 2) / 4);
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+
+    ctx.lineTo((canvas.width / 2 + Math.cos(angle) * secHandLength / 1.5),
+        canvas.height / 2 + Math.sin(angle) * secHandLength / 1.5);
+
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+}
+
+
+if(angle != (Math.PI/2) && angle != (Math.PI/3) && angle != (Math.PI/6) && angle != 0 &&
+   angle != (11*Math.PI/6) && angle != (5*Math.PI/3) && angle != (3*Math.PI/2) &&
+   angle != (4*Math.PI/3) && angle != (7*Math.PI/6) && angle != (Math.PI) &&
+   angle != (5*Math.PI/6) && angle != (2*Math.PI/3) && angle != (2*Math.PI)){
+
+
+   if((angle == (Math.PI/2))    || (angle == (Math.PI/3))   || (angle == 0) ||
+      (angle == (11*Math.PI/6)) || (angle == (5*Math.PI/3)) || (angle == (3*Math.PI/2)) ||
+      (angle == (4*Math.PI/3))  || (angle == (7*Math.PI/6)) || (angle == (Math.PI))     ||
+      (angle == (5*Math.PI/6))  || (angle == (2*Math.PI/3)) || (angle == (2*Math.PI))) continue;
